@@ -5,80 +5,92 @@
   <!-- <link rel = "stylesheet" href = "css/main.css"> -->
   <meta name = "viewport" content = "width = device-width, initial-scale = 1">
   <meta charset ="UTF-8">
-
 </head>
 <body>
-<p id = "trackInfo"></p>
+  <p id = "trackInfo"></p>
 
-<audio id = "currentTrack">
-  <source id = "currentTrackSource" src = "">
-</audio>
+  <audio id = "currentTrack">
+    <source id = "currentTrackSource" src = "">
+  </audio>
 
-<button id = "previous" onclick = "loadPrev()">previous</button>
-<button id = "playPause" onclick = "playTrack()">play</button>
-<button id = "next" onclick = "loadNext()">next</button>
+  <button id = "previous" onclick = "loadPrev()">previous</button>
+  <button id = "playPause" onclick = "playTrack()">play</button>
+  <button id = "next" onclick = "loadNext()">next</button>
 
 <script>
-
   // dummy JSON data for testing
-  var jSon = {"tracks": [{"title": "LNDR", "artist": "chrisLazaga", "type": "mpeg", "directory": "audio/Ambient 01 - Dbris - www.technoblack.site.mp3"}
-    , {"title": "900kb Driver", "artist": "michaelChapa", "type": "wav", "directory": "audio/900kb Driver - Michael Chapa - 02.27.18.wav"}]};
-
+  var jSon = [
+              {
+                "trackID": 0, 
+                "trackTitle": "LNDR", 
+                "artist": "chrisLazaga", 
+                "audioType": "mpeg", 
+                "directory": "audio/Ambient 01 - Dbris - www.technoblack.site.mp3"
+              }, 
+              {
+                "trackID": 1, 
+                "trackTitle": "900kb Driver", 
+                "artist": "michaelChapa", 
+                "audioType": "wav", 
+                "directory": "audio/900kb Driver - Michael Chapa - 02.27.18.wav"
+              }
+             ];
+  
+  var trackInfo = document.getElementById("trackInfo");
   var audio = document.getElementById("currentTrack");
+  var currentTrack; // initialized when first track loaded
   var index = 0; // track index variable, starts at 0th track
 
   // populate first track from JSON object array
   populateTrackInfo(jSon, index);
   audio.src = jSon.tracks[index].directory;
-  audio.setAttribute("type", "audio/" + jSon.tracks[index].type);
+  audio.setAttribute("type", "audio/" + jSon.tracks[index].audioType);
 
-  // information functions
-  function populateTrackInfo(jSon, index)
-  {
-    console.log(jSon);
-    document.getElementById("trackInfo").innerHTML = jSon.tracks[index].title + " by "
-      + jSon.tracks[index].artist;
-  } // end subRoutine
+  function populateTrackInfo(jSon, index){
+    // not how we should iterate :/
+    for(var i in jSon){
+      if(jSon[i].trackID == index){
+        currentTrack = jSon[i];
+        console.log(jSon[i].trackTitle;
+      }
+    }
+        
+    trackInfo.innerHTML = 
+  }
 
   // transport functions
-  function loadPrev(jSon, index)
-  {
-    // set trackInfo data
+  function loadPrev(jSon, index){
     populateTrackInfo(jSon, index);
-
+    
     // load track to source of audio element currentTrack
     // document.getElementById("currentTrackSource").src = "FILE_PATH"
     // audio.load();
-  } // end subRoutine
+  }
 
-  function loadNext(jSon, index)
-  {
+  function loadNext(jSon, index){
     index++; // increment track index for next track
 
     // load track to source of audio element currentTrack
-
     populateTrackInfo(jSon, index);
     audio.src = jSon.tracks[index].directory;
     audio.setAttribute("type", "audio/" + jSon.tracks[index].type);
     audio.load();
-  } // end subRoutine
+  }
 
-  function playTrack()
-  {
+  function playTrack(){
     document.getElementById("playPause").innerHTML = "pause";
     audio.play();
 
     // sets the playPause button to pause on next click
     document.getElementById("playPause").setAttribute("onclick", "pauseTrack()");
-  } // end subRoutine
+  }
 
-  function pauseTrack()
-  {
+  function pauseTrack(){
     document.getElementById("playPause").innerHTML = "play";
     audio.pause();
     // sets the playPause button to play on next click
     document.getElementById("playPause").setAttribute("onclick", "playTrack()");
-  } // end subRoutine
+  }
 </script>
 </body>
 </html>
