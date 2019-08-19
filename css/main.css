@@ -1,0 +1,22 @@
+#visualizer {
+	width: 100%;
+	height: 20%;
+	border: 2px solid red;
+}
+
+body {
+	background-color: black;
+}
+
+h2 {
+	color: white;
+}
+
+a:link {
+	color: #2bed1a;
+}
+
+p {
+	font-family: monotype, Helvetica, sans-serif;
+	color: white;
+}

@@ -2,11 +2,13 @@
 <html>
 <head>
   <title>Techno_Black_Site</title>
-  <!-- <link rel = "stylesheet" href = "css/main.css"> -->
+  <link rel = "stylesheet" href = "css/main.css">
   <meta name = "viewport" content = "width = device-width, initial-scale = 1">
   <meta charset ="UTF-8">
+  <script type = "text/javascript" src = "js/transport.js"></script>
 </head>
 <body>
+  <canvas id = "visualizer"></canvas>
   <p id = "trackInfo"></p>
 
   <audio id = "currentTrack">
@@ -16,81 +18,5 @@
   <button id = "previous" onclick = "loadPrev()">previous</button>
   <button id = "playPause" onclick = "playTrack()">play</button>
   <button id = "next" onclick = "loadNext()">next</button>
-
-<script>
-  // dummy JSON data for testing
-  var jSon = [
-              {
-                "trackID": 0, 
-                "trackTitle": "LNDR", 
-                "artist": "chrisLazaga", 
-                "audioType": "mpeg", 
-                "directory": "audio/Ambient 01 - Dbris - www.technoblack.site.mp3"
-              }, 
-              {
-                "trackID": 1, 
-                "trackTitle": "900kb Driver", 
-                "artist": "michaelChapa", 
-                "audioType": "wav", 
-                "directory": "audio/900kb Driver - Michael Chapa - 02.27.18.wav"
-              }
-             ];
-  
-  var trackInfo = document.getElementById("trackInfo");
-  var audio = document.getElementById("currentTrack");
-  var currentTrack; // initialized when first track loaded
-  var index = 0; // track index variable, starts at 0th track
-
-  // populate first track from JSON object array
-  populateTrackInfo(jSon, index);
-  audio.src = jSon.tracks[index].directory;
-  audio.setAttribute("type", "audio/" + jSon.tracks[index].audioType);
-
-  function populateTrackInfo(jSon, index){
-    // not how we should iterate :/
-    for(var i in jSon){
-      if(jSon[i].trackID == index){
-        currentTrack = jSon[i];
-        console.log(jSon[i].trackTitle;
-      }
-    }
-        
-    trackInfo.innerHTML = 
-  }
-
-  // transport functions
-  function loadPrev(jSon, index){
-    populateTrackInfo(jSon, index);
-    
-    // load track to source of audio element currentTrack
-    // document.getElementById("currentTrackSource").src = "FILE_PATH"
-    // audio.load();
-  }
-
-  function loadNext(jSon, index){
-    index++; // increment track index for next track
-
-    // load track to source of audio element currentTrack
-    populateTrackInfo(jSon, index);
-    audio.src = jSon.tracks[index].directory;
-    audio.setAttribute("type", "audio/" + jSon.tracks[index].type);
-    audio.load();
-  }
-
-  function playTrack(){
-    document.getElementById("playPause").innerHTML = "pause";
-    audio.play();
-
-    // sets the playPause button to pause on next click
-    document.getElementById("playPause").setAttribute("onclick", "pauseTrack()");
-  }
-
-  function pauseTrack(){
-    document.getElementById("playPause").innerHTML = "play";
-    audio.pause();
-    // sets the playPause button to play on next click
-    document.getElementById("playPause").setAttribute("onclick", "playTrack()");
-  }
-</script>
 </body>
 </html>
